@@ -7,6 +7,8 @@ public class JogoDaVelha {
                 grade[i][j] = ' ';
             }
         }
+
+        imprimeGrade();
     }
 
     public void imprimeGrade() {
@@ -21,7 +23,7 @@ public class JogoDaVelha {
         }
     }
 
-    public void jogar(Jogador jogador) {
+    public Boolean jogar(Jogador jogador) {
         int x = jogador.getX();
         int y = jogador.getY();
 
@@ -31,5 +33,39 @@ public class JogoDaVelha {
         } else {
             System.out.println("Jogada inválida");
         }
+
+        imprimeGrade();
+
+        return verificaVencedor();
+    }
+
+    private Boolean verificaVencedor() {
+        Boolean hasWinner = horizontalMatch();
+        // Houve vencedor na vertical
+        // Houve vencedor na diagonal
+        // Deu velha
+        return hasWinner;
+    }
+
+    private Boolean horizontalMatch() {
+        for (int i = 0; i < grade.length; i++) {
+            Integer countSymbolMatch = 0;
+            char symbol = grade[i][i];
+
+            if (symbol != ' ') {
+                for (int j = 1; j < grade.length; j++) {
+                    char nextSymbol = grade[i][j];
+                    if (symbol == nextSymbol) {
+                        countSymbolMatch++;
+                    }              
+                }
+            }
+            
+            if (countSymbolMatch == grade.length - 1) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

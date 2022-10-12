@@ -7,20 +7,19 @@ public class App {
         JogoDaVelha jogo = new JogoDaVelha();
         Jogador jogador1 = new Jogador(1, 'X');
         Jogador jogador2 = new Jogador(2, 'O');
+        Boolean hasWinner = false;
 
-        jogo.imprimeGrade();
+        while(!hasWinner) {
+            jogador1.setX(scanner);
+            jogador1.setY(scanner);
+            hasWinner = jogo.jogar(jogador1);
 
-        jogador1.setX(scanner);
-        jogador1.setY(scanner);
-
-        jogo.jogar(jogador1);
-        jogo.imprimeGrade();
-
-        jogador2.setX(scanner);
-        jogador2.setY(scanner);
-
-        jogo.jogar(jogador2);
-        jogo.imprimeGrade();
+            if (!hasWinner) {
+                jogador2.setX(scanner);
+                jogador2.setY(scanner);
+                hasWinner = jogo.jogar(jogador2);
+            }
+        }
 
         scanner.close();
     }
