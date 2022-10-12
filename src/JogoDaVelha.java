@@ -41,7 +41,9 @@ public class JogoDaVelha {
 
     private Boolean verificaVencedor() {
         Boolean hasWinner = horizontalMatch();
-        // Houve vencedor na vertical
+        if (!hasWinner) {
+            hasWinner = verticalMatch();
+        }
         // Houve vencedor na diagonal
         // Deu velha
         return hasWinner;
@@ -50,11 +52,33 @@ public class JogoDaVelha {
     private Boolean horizontalMatch() {
         for (int i = 0; i < grade.length; i++) {
             Integer countSymbolMatch = 0;
-            char symbol = grade[i][i];
+            char symbol = grade[i][0];
 
             if (symbol != ' ') {
                 for (int j = 1; j < grade.length; j++) {
                     char nextSymbol = grade[i][j];
+                    if (symbol == nextSymbol) {
+                        countSymbolMatch++;
+                    }              
+                }
+            }
+            
+            if (countSymbolMatch == grade.length - 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private Boolean verticalMatch() {
+        for (int i = 0; i < grade.length; i++) {
+            Integer countSymbolMatch = 0;
+            char symbol = grade[0][i];
+
+            if (symbol != ' ') {
+                for (int j = 1; j < grade.length; j++) {
+                    char nextSymbol = grade[j][i];
                     if (symbol == nextSymbol) {
                         countSymbolMatch++;
                     }              
